@@ -8,6 +8,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.avp.musicsearch.R
+import com.avp.musicsearch.common.EventObserver
 import com.avp.musicsearch.databinding.ActivitySearchBinding
 import com.avp.musicsearch.dto.Artist
 import kotlinx.android.synthetic.main.activity_search.*
@@ -36,6 +37,19 @@ class SearchActivity : AppCompatActivity() {
             adapter = artistsAdapter
             layoutManager = LinearLayoutManager(context)
         }
+        onAdapterItemClickListener()
+    }
+
+    private fun onAdapterItemClickListener() {
+        artistsAdapter.itemClickLiveData.observe(this, EventObserver {
+            it?.let {
+                openAlbumsActivity()
+            }
+        })
+    }
+
+    private fun openAlbumsActivity() {
+
     }
 
     private fun configureSearch() {

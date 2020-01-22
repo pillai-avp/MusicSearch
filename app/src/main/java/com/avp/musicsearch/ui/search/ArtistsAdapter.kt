@@ -2,7 +2,9 @@ package com.avp.musicsearch.ui.search
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
+import com.avp.musicsearch.common.Event
 import com.avp.musicsearch.databinding.ArtistItemLayoutBinding
 import com.avp.musicsearch.dto.Artist
 
@@ -18,17 +20,23 @@ import com.avp.musicsearch.dto.Artist
 class ArtistsAdapter : RecyclerView.Adapter<ArtistsAdapter.ArtistViewHolder>() {
 
     private var artists: MutableList<Artist> = mutableListOf()
+    val itemClickLiveData = MutableLiveData<Event<Artist?>>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ArtistViewHolder {
         val itemBinding =
             ArtistItemLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ArtistViewHolder(itemBinding)
+        val holder = ArtistViewHolder(itemBinding)
+        holder.itemView.setOnClickListener {
+            itemClickLiveData.postValue(Event(itemBinding.artist))
+        }
+        return holder
     }
 
     override fun getItemCount(): Int = artists.size
 
     override fun onBindViewHolder(holder: ArtistViewHolder, position: Int) {
         holder.bind(artists[position])
+
     }
 
     fun setItem(artists: List<Artist>) {
