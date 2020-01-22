@@ -23,9 +23,7 @@ import timber.log.Timber
 class SearchViewModel(
     private val scope: CoroutineScope,
     private val searchArtistUseCase: SearchArtistUseCase
-)
-
-    : BaseViewModel(scope) {
+) : BaseViewModel(scope) {
 
     fun doSearch(query: String): LiveData<List<Artist>?> {
         val searchResult = MutableLiveData<Either<List<Artist>>>()
@@ -38,7 +36,6 @@ class SearchViewModel(
                 null
             }
         }
-
     }
 
 

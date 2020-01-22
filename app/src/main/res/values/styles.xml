@@ -16,7 +16,16 @@
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
 
-
+    <style name="artist_list_title">
+        <item name="android:fontFamily">@string/font_family_medium</item>
+        <item name="android:text">@string/artists</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:layout_marginStart">16dp</item>
+        <item name="android:layout_marginEnd">16dp</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
 
 
 </resources>

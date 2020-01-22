@@ -11,6 +11,7 @@ buildscript {
         okhttpVersion = "3.10.0"
         retrofitVersion = "2.5.0"
         coroutinesRetrofitVersion = "0.9.2"
+        circularImageVersion = "3.0.0"
 
 
     }

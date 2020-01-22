@@ -5,7 +5,8 @@ import android.app.Application
 import android.util.Log
 import com.avp.musicsearch.di.apiModules
 import com.avp.musicsearch.di.appModule
-import com.avp.musicsearch.di.searchModule
+import com.avp.musicsearch.di.domainModule
+import com.avp.musicsearch.di.uiModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
@@ -40,7 +41,7 @@ class MusicApplication : Application() {
         startKoin {
             androidLogger()
             androidContext(this@MusicApplication)
-            modules(mutableListOf(appModule, apiModules, searchModule))
+            modules(mutableListOf(appModule, apiModules, domainModule, uiModule))
         }
     }
 }

@@ -21,6 +21,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    dataBinding {
+        enabled true
+    }
 }
 
 dependencies {
@@ -53,6 +57,8 @@ dependencies {
     implementation "com.squareup.okhttp3:logging-interceptor:$rootProject.okhttpVersion"
     // Coroutines - Retrofit extention
     implementation 'ru.gildor.coroutines:kotlin-coroutines-retrofit:1.0.0'
+
+    implementation "de.hdodenhof:circleimageview:$rootProject.circularImageVersion"
 
 
 
