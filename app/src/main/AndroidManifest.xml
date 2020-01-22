@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.avp.musicsearch">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".MusicApplication"
         android:allowBackup="true"

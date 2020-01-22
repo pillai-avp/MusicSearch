@@ -1,5 +1,9 @@
 package com.avp.musicsearch.repo
 
+import com.avp.musicsearch.dto.ArtistSearchResponse
+import com.avp.musicsearch.net.DeezerAPI
+import ru.gildor.coroutines.retrofit.await
+
 
 /**
  *
@@ -11,15 +15,13 @@ package com.avp.musicsearch.repo
  */
 
 interface AlbumRepository {
-    fun genericSearch(query: String): List<Any>
+    suspend fun genericArtistSearch(query: String): ArtistSearchResponse
 }
 
-class AlbumRepositoryImpl() : AlbumRepository {
+class AlbumRepositoryImpl(private val deezerAPI: DeezerAPI) : AlbumRepository {
 
-
-    override fun genericSearch(query: String): List<Any> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override suspend fun genericArtistSearch(query: String): ArtistSearchResponse {
+        return deezerAPI.searchArtist(query).await()
     }
-
 
 }
