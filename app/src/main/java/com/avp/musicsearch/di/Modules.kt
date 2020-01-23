@@ -44,11 +44,6 @@ val appModule = module {
             CoroutineScope(Dispatchers.Main + job)
         }
     }
-    factory { Job() }
-    factory {
-        val job: Job = get()
-        CoroutineScope(Dispatchers.Main + job)
-    }
 
 }
 

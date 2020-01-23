@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.avp.musicsearch.common.Event
 import com.avp.musicsearch.databinding.ArtistItemLayoutBinding
 import com.avp.musicsearch.dto.Artist
+import com.bumptech.glide.Glide
 
 
 /**
@@ -49,6 +50,9 @@ class ArtistsAdapter : RecyclerView.Adapter<ArtistsAdapter.ArtistViewHolder>() {
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Artist) {
             binding.artist = item
+            Glide.with(binding.artistImage.context)
+                .load(item.picture_small)
+                .into(binding.artistImage)
             binding.executePendingBindings()
         }
     }

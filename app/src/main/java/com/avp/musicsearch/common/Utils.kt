@@ -1,7 +1,11 @@
 package com.avp.musicsearch.common
 
+import android.widget.ImageView
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
+import com.avp.musicsearch.R
+import com.bumptech.glide.Glide
+import de.hdodenhof.circleimageview.CircleImageView
 import okhttp3.Interceptor
 import okhttp3.logging.HttpLoggingInterceptor
 import timber.log.Timber
@@ -36,4 +40,17 @@ fun createHeaderLoggingInterceptor(): Interceptor {
     val logger = HttpLoggingInterceptor { message -> Timber.tag("OkHttp").d(message) }
     logger.level = HttpLoggingInterceptor.Level.HEADERS
     return logger
+}
+
+
+fun CircleImageView.setImageUrl(
+    img: ImageView,
+    url: String?
+) {
+    url?.let {
+        Glide.with(img.context)
+            .load(url)
+            .placeholder(R.mipmap.ic_launcher)
+            .into(img)
+    }
 }
