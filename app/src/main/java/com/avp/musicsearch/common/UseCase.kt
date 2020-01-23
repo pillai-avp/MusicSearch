@@ -55,9 +55,9 @@ abstract class UseCase<in P, R> constructor(
         }
     }
 
-    /** Executes the use case asynchronously and returns a [Result] in a new LiveData object.
+    /** Executes the use case asynchronously and returns a [Either] in a new LiveData object.
      *
-     * @return an observable [LiveData] with a [Result].
+     * @return an observable [LiveData] with a [Either].
      *
      * @param parameters the input parameters to run the use case with
      */

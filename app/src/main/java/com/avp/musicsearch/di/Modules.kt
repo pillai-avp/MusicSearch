@@ -35,6 +35,15 @@ import java.util.concurrent.TimeUnit
 
 val appModule = module {
 
+    scope(named("viewModelScope")) {
+        scoped {
+            Job()
+        }
+        scoped {
+            val job: Job = get()
+            CoroutineScope(Dispatchers.Main + job)
+        }
+    }
     factory { Job() }
     factory {
         val job: Job = get()
@@ -85,7 +94,11 @@ val uiModule = module {
         scoped { ArtistsAdapter() }
     }
 
-    viewModel { SearchViewModel(get(), get()) }
+
+    viewModel {
+        val viewModelScope = getKoin().getOrCreateScope("viewModelScopeID", named("viewModelScope"))
+        SearchViewModel(viewModelScope, viewModelScope.get(), get())
+    }
 }
 
 
@@ -94,5 +107,9 @@ val uiModule = module {
  */
 val domainModule = module {
     factory<AlbumRepository> { AlbumRepositoryImpl(get()) }
-    factory { SearchArtistUseCase(get(), get()) }
+
+    factory {
+        val viewModelScope = getKoin().getOrCreateScope("viewModelScopeID", named("viewModelScope"))
+        SearchArtistUseCase(viewModelScope.get(), get())
+    }
 }

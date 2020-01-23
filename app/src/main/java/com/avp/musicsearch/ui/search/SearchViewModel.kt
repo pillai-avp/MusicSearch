@@ -9,6 +9,7 @@ import com.avp.musicsearch.dto.Artist
 import com.avp.musicsearch.ui.abstract.BaseViewModel
 import com.avp.musicsearch.usecases.SearchArtistUseCase
 import kotlinx.coroutines.CoroutineScope
+import org.koin.core.scope.Scope
 import timber.log.Timber
 
 
@@ -21,9 +22,10 @@ import timber.log.Timber
  * Date: 21 January 2020
  */
 class SearchViewModel(
-    private val scope: CoroutineScope,
+    private val viewModelScope: Scope,
+    private val coroutineScope: CoroutineScope,
     private val searchArtistUseCase: SearchArtistUseCase
-) : BaseViewModel(scope) {
+) : BaseViewModel(viewModelScope, coroutineScope) {
 
     fun doSearch(query: String): LiveData<List<Artist>?> {
         val searchResult = MutableLiveData<Either<List<Artist>>>()
@@ -37,7 +39,4 @@ class SearchViewModel(
             }
         }
     }
-
-
-
 }
