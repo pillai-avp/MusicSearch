@@ -1,6 +1,5 @@
 package com.avp.musicsearch.usecases
 
-import com.avp.musicsearch.common.UseCase
 import com.avp.musicsearch.dto.Artist
 import com.avp.musicsearch.repo.AlbumRepository
 import kotlinx.coroutines.CoroutineScope

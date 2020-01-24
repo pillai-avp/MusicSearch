@@ -3,6 +3,7 @@ package com.avp.musicsearch.ui.search
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.avp.musicsearch.common.Either
+import com.avp.musicsearch.common.Event
 import com.avp.musicsearch.common.map
 import com.avp.musicsearch.common.succeeded
 import com.avp.musicsearch.dto.Artist
@@ -29,23 +30,22 @@ class SearchViewModel(
 
     private val searchResult = MutableLiveData<Either<List<Artist>>>()
 
-    private val artistList: LiveData<List<Artist>?>
+    private val artistListLiveData: LiveData<Event<List<Artist>?>>
 
     init {
-
-        artistList = searchResult.map { either ->
+        artistListLiveData = searchResult.map { either ->
             if ((either.succeeded)) {
-                (either as Either.Success).data
+                Event((either as Either.Success).data)
             } else {
                 Timber.e((either as Either.Error).exception)
-                null
+                Event(null)
             }
         }
 
     }
 
-    fun doSearch(query: String): LiveData<List<Artist>?> {
+    fun doSearch(query: String): LiveData<Event<List<Artist>?>> {
         searchArtistUseCase(query, searchResult)
-        return artistList
+        return artistListLiveData
     }
 }

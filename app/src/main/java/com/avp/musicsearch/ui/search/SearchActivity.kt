@@ -1,12 +1,11 @@
 package com.avp.musicsearch.ui.search
 
 import android.os.Bundle
-import android.widget.Toast
+import android.text.TextUtils
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.avp.musicsearch.R
 import com.avp.musicsearch.common.EventObserver
@@ -73,6 +72,8 @@ class SearchActivity : AppCompatActivity() {
             fun doAnEmptyCheckThen(newText: String?, searchFn: (SearchViewModel, String) -> Unit) {
                 if (newText != null && newText.length >= 3) {
                     searchFn(searchViewModel, newText)
+                } else if ((newText != null && newText.length < 3) || TextUtils.isEmpty(newText)) {
+                    showEmptyScreen()
                 }
             }
 
@@ -80,7 +81,7 @@ class SearchActivity : AppCompatActivity() {
     }
 
     private fun getArtistList(searchViewModel: SearchViewModel, query: String) {
-        searchViewModel.doSearch(query).observe(this, Observer { list ->
+        searchViewModel.doSearch(query).observe(this, EventObserver { list ->
             list?.let {
                 showArtistGrid(it)
             } ?: run {
@@ -94,7 +95,7 @@ class SearchActivity : AppCompatActivity() {
     }
 
     private fun showEmptyScreen() {
-        Toast.makeText(this, R.string.try_some_thing_else, Toast.LENGTH_SHORT).show()
+        artistsAdapter.setItem(mutableListOf())
     }
 
 

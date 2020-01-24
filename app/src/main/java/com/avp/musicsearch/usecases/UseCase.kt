@@ -1,4 +1,4 @@
-package com.avp.musicsearch.common
+package com.avp.musicsearch.usecases
 
 
 /**
@@ -9,6 +9,7 @@ package com.avp.musicsearch.common
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.avp.musicsearch.common.Either
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -45,7 +46,11 @@ abstract class UseCase<in P, R> constructor(
             try {
                 // Check access token is active
                 execute(parameters).let { useCaseResult ->
-                    result.postValue(Either.Success(useCaseResult))
+                    result.postValue(
+                        Either.Success(
+                            useCaseResult
+                        )
+                    )
                 }
             } catch (e: Exception) {
                 Timber.e(e)
@@ -67,7 +72,11 @@ abstract class UseCase<in P, R> constructor(
         uiScope.launch {
             try {
                 execute(parameters).let { useCaseResult ->
-                    liveCallback.postValue(Either.Success(useCaseResult))
+                    liveCallback.postValue(
+                        Either.Success(
+                            useCaseResult
+                        )
+                    )
                 }
             } catch (e: Exception) {
                 Timber.e(e)
