@@ -27,10 +27,13 @@ class SearchViewModel(
     private val searchArtistUseCase: SearchArtistUseCase
 ) : BaseViewModel(viewModelScope, coroutineScope) {
 
-    fun doSearch(query: String): LiveData<List<Artist>?> {
-        val searchResult = MutableLiveData<Either<List<Artist>>>()
-        searchArtistUseCase(query, searchResult)
-        return searchResult.map { either ->
+    private val searchResult = MutableLiveData<Either<List<Artist>>>()
+
+    private val artistList: LiveData<List<Artist>?>
+
+    init {
+
+        artistList = searchResult.map { either ->
             if ((either.succeeded)) {
                 (either as Either.Success).data
             } else {
@@ -38,5 +41,11 @@ class SearchViewModel(
                 null
             }
         }
+
+    }
+
+    fun doSearch(query: String): LiveData<List<Artist>?> {
+        searchArtistUseCase(query, searchResult)
+        return artistList
     }
 }

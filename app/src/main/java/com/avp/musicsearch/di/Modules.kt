@@ -7,9 +7,13 @@ import com.avp.musicsearch.common.createLoggingInterceptor
 import com.avp.musicsearch.net.DeezerAPI
 import com.avp.musicsearch.repo.AlbumRepository
 import com.avp.musicsearch.repo.AlbumRepositoryImpl
+import com.avp.musicsearch.ui.album_list.AlbumListActivity
+import com.avp.musicsearch.ui.album_list.AlbumListViewModel
+import com.avp.musicsearch.ui.album_list.AlbumsAdapter
 import com.avp.musicsearch.ui.search.ArtistsAdapter
 import com.avp.musicsearch.ui.search.SearchActivity
 import com.avp.musicsearch.ui.search.SearchViewModel
+import com.avp.musicsearch.usecases.GetAlbumsListUsecase
 import com.avp.musicsearch.usecases.SearchArtistUseCase
 import com.google.gson.GsonBuilder
 import kotlinx.coroutines.CoroutineScope
@@ -89,10 +93,18 @@ val uiModule = module {
         scoped { ArtistsAdapter() }
     }
 
+    scope(named<AlbumListActivity>()) {
+        scoped { AlbumsAdapter() }
+    }
 
     viewModel {
         val viewModelScope = getKoin().getOrCreateScope("viewModelScopeID", named("viewModelScope"))
         SearchViewModel(viewModelScope, viewModelScope.get(), get())
+    }
+
+    viewModel {
+        val viewModelScope = getKoin().getOrCreateScope("viewModelScopeID", named("viewModelScope"))
+        AlbumListViewModel(viewModelScope, viewModelScope.get(), viewModelScope.get())
     }
 }
 
@@ -106,5 +118,10 @@ val domainModule = module {
     factory {
         val viewModelScope = getKoin().getOrCreateScope("viewModelScopeID", named("viewModelScope"))
         SearchArtistUseCase(viewModelScope.get(), get())
+    }
+
+    factory {
+        val viewModelScope = getKoin().getOrCreateScope("viewModelScopeID", named("viewModelScope"))
+        GetAlbumsListUsecase(viewModelScope.get(), get())
     }
 }

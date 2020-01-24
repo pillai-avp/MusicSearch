@@ -1,6 +1,7 @@
 package com.avp.musicsearch.ui.search
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
@@ -11,7 +12,10 @@ import com.avp.musicsearch.R
 import com.avp.musicsearch.common.EventObserver
 import com.avp.musicsearch.databinding.ActivitySearchBinding
 import com.avp.musicsearch.dto.Artist
+import com.avp.musicsearch.ui.album_list.AlbumListActivity
+import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_search.*
+import org.koin.android.ext.android.inject
 import org.koin.androidx.scope.currentScope
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -19,6 +23,7 @@ class SearchActivity : AppCompatActivity() {
 
     private val searchViewModel: SearchViewModel by viewModel()
     private val artistsAdapter: ArtistsAdapter by currentScope.inject()
+    private val gson: Gson by inject()
 
     private lateinit var binding: ActivitySearchBinding
 
@@ -43,13 +48,13 @@ class SearchActivity : AppCompatActivity() {
     private fun onAdapterItemClickListener() {
         artistsAdapter.itemClickLiveData.observe(this, EventObserver {
             it?.let {
-                openAlbumsActivity()
+                openAlbumsActivity(it)
             }
         })
     }
 
-    private fun openAlbumsActivity() {
-
+    private fun openAlbumsActivity(artist: Artist) {
+        AlbumListActivity.launch(this, gson.toJson(artist))
     }
 
     private fun configureSearch() {
@@ -89,7 +94,7 @@ class SearchActivity : AppCompatActivity() {
     }
 
     private fun showEmptyScreen() {
-
+        Toast.makeText(this, R.string.try_some_thing_else, Toast.LENGTH_SHORT).show()
     }
 
 
