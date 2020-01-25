@@ -6,9 +6,9 @@ import com.avp.musicsearch.common.Either
 import com.avp.musicsearch.common.Event
 import com.avp.musicsearch.common.map
 import com.avp.musicsearch.common.succeeded
-import com.avp.musicsearch.dto.Album
+import com.avp.musicsearch.dto.TrackData
 import com.avp.musicsearch.ui.base.BaseViewModel
-import com.avp.musicsearch.usecases.GetAlbumsListUsecase
+import com.avp.musicsearch.usecases.GetTrackListUsecase
 import kotlinx.coroutines.CoroutineScope
 import org.koin.core.scope.Scope
 import timber.log.Timber
@@ -25,15 +25,15 @@ import timber.log.Timber
 class AlbumDetailsViewModel(
     private val scope: Scope,
     private val coroutineScope: CoroutineScope,
-    private val getAlbumsListUsecase: GetAlbumsListUsecase
+    private val getTrackListUsecase: GetTrackListUsecase
 ) : BaseViewModel(scope, coroutineScope) {
 
-    private val getAlbumsResult = MutableLiveData<Either<List<Album>>>()
-    private val albumsLiveData: LiveData<Event<List<Album>?>>
+    private val getTracksResult = MutableLiveData<Either<List<TrackData>>>()
+    private val tracksLiveData: LiveData<Event<List<TrackData>?>>
 
     init {
 
-        albumsLiveData = getAlbumsResult.map { either ->
+        tracksLiveData = getTracksResult.map { either ->
             if ((either.succeeded)) {
                 Event((either as Either.Success).data)
             } else {
@@ -44,9 +44,9 @@ class AlbumDetailsViewModel(
 
     }
 
-    fun getAlbumList(name: String): LiveData<Event<List<Album>?>> {
-        getAlbumsListUsecase(name, getAlbumsResult)
-        return albumsLiveData
+    fun getTrackList(url: String): LiveData<Event<List<TrackData>?>> {
+        getTrackListUsecase(url, getTracksResult)
+        return tracksLiveData
     }
 
 }

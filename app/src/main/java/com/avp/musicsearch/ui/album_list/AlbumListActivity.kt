@@ -14,7 +14,7 @@ import com.avp.musicsearch.common.EventObserver
 import com.avp.musicsearch.databinding.ActivityAlbumListBinding
 import com.avp.musicsearch.dto.Album
 import com.avp.musicsearch.dto.Artist
-import com.avp.musicsearch.ui.album.AlbumDetailsActivity
+import com.avp.musicsearch.ui.album.TracksActivity
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_album_list.*
 import org.koin.android.ext.android.inject
@@ -70,7 +70,7 @@ class AlbumListActivity : AppCompatActivity() {
     }
 
     private fun openAlbumDetailsActivity(it: Album) {
-        AlbumDetailsActivity.launch(this, gson.toJson(it))
+        TracksActivity.launch(this, gson.toJson(it))
     }
 
     private fun getAlbumList(name: String) {
