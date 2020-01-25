@@ -14,7 +14,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".ui.album_list.AlbumListActivity"></activity>
+        <activity android:name=".ui.album.AlbumDetailsActivity"></activity>
+        <activity android:name=".ui.album_list.AlbumListActivity" />
         <activity android:name=".ui.search.SearchActivity" />
 
         <activity-alias

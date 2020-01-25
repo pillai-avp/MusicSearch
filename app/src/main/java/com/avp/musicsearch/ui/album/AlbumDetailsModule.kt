@@ -1,5 +1,7 @@
-package com.avp.musicsearch.ui.album_list
+package com.avp.musicsearch.ui.album
 
+import com.avp.musicsearch.ui.album_list.AlbumDetailsViewModel
+import com.avp.musicsearch.ui.album_list.AlbumsAdapter
 import com.avp.musicsearch.usecases.GetAlbumsListUsecase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -18,24 +20,24 @@ import org.koin.dsl.module
  * Date: 24 January 2020
  */
 
-private const val scopeName = "AlbumListActivity_scope"
+private const val scopeName = "AlbumDetailsActivity_scope"
 
-val albumListModule = module {
-    scope(named<AlbumListActivity>()) {
+val albumDetailsModule = module {
+    scope(named<AlbumDetailsActivity>()) {
         scoped { AlbumsAdapter() }
     }
 
     viewModel {
         val viewModelScope = getKoin().getOrCreateScope(
-            "id_${scopeName}",
+            "id_$scopeName",
             named(scopeName)
         )
-        AlbumListViewModel(viewModelScope, viewModelScope.get(), viewModelScope.get())
+        AlbumDetailsViewModel(viewModelScope, viewModelScope.get(), viewModelScope.get())
     }
 
     factory {
         val viewModelScope = getKoin().getOrCreateScope(
-            "id_${scopeName}",
+            "id_$scopeName",
             named(scopeName)
         )
         GetAlbumsListUsecase(viewModelScope.get(), get())

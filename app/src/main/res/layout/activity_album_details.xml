@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="album"
+            type="com.avp.musicsearch.dto.Album" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/gradient_black_gray"
+        tools:context=".ui.album.AlbumDetailsActivity">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appbar_album_details"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            android:background="@null"
+            app:elevation="0dp"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/album_details_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:theme="@style/AppTheme.AppBarOverlay" />
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+
+        <ImageView
+            android:id="@+id/album_cover_details"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="30dp"
+            android:minHeight="200dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/appbar_album_details"
+            tools:src="@mipmap/ic_launcher"/>
+
+        <TextView
+            android:id="@+id/album_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@string/font_family_medium"
+            android:gravity="center_vertical"
+            android:paddingBottom="5dp"
+            android:text="@{album.title}"
+            android:textColor="@android:color/white"
+            android:textSize="16dp"
+            app:layout_constraintTop_toBottomOf="@id/album_cover_details"
+            tools:text="HITNRUN"
+            tools:textColor="@android:color/black" />
+
+        <TextView
+            android:id="@+id/album_artist_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_marginLeft="16dp"
+            android:fontFamily="@string/font_family_regular"
+            android:gravity="center_vertical"
+            android:text="@{album.artist.name}"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="14dp"
+            tools:text="Prince"
+            tools:textColor="@android:color/darker_gray" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
