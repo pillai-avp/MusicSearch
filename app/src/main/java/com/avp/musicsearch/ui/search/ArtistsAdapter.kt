@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
+import com.avp.musicsearch.R
 import com.avp.musicsearch.common.Event
 import com.avp.musicsearch.databinding.ArtistItemLayoutBinding
 import com.avp.musicsearch.dto.Artist
@@ -52,7 +53,9 @@ class ArtistsAdapter : RecyclerView.Adapter<ArtistsAdapter.ArtistViewHolder>() {
             binding.artist = item
             Glide.with(binding.artistImage.context)
                 .load(item.picture_small)
+                .placeholder(R.drawable.ic_album_art_empty)
                 .into(binding.artistImage)
+
             binding.executePendingBindings()
         }
     }

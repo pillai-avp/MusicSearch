@@ -44,8 +44,8 @@ class MusicApplication : Application() {
             androidContext(this@MusicApplication)
             modules(mutableListOf(apiModules,
                 repoModules,
-                albumListModule,
                 searchModule,
+                albumListModule,
                 albumDetailsModule))
         }
     }

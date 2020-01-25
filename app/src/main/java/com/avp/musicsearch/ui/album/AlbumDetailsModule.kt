@@ -2,7 +2,6 @@ package com.avp.musicsearch.ui.album
 
 import com.avp.musicsearch.ui.album_list.AlbumDetailsViewModel
 import com.avp.musicsearch.ui.album_list.AlbumsAdapter
-import com.avp.musicsearch.usecases.GetAlbumsListUsecase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -35,13 +34,13 @@ val albumDetailsModule = module {
         AlbumDetailsViewModel(viewModelScope, viewModelScope.get(), viewModelScope.get())
     }
 
-    factory {
+    /*factory {
         val viewModelScope = getKoin().getOrCreateScope(
             "id_$scopeName",
             named(scopeName)
         )
-        GetAlbumsListUsecase(viewModelScope.get(), get())
-    }
+        GetAlbumUsecase(viewModelScope.get(), get())
+    }*/
 
     scope(named(scopeName)) {
         scoped {
