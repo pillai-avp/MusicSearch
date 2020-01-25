@@ -7,7 +7,7 @@ import com.avp.musicsearch.common.Event
 import com.avp.musicsearch.common.map
 import com.avp.musicsearch.common.succeeded
 import com.avp.musicsearch.dto.Artist
-import com.avp.musicsearch.ui.abstract.BaseViewModel
+import com.avp.musicsearch.ui.base.BaseViewModel
 import com.avp.musicsearch.usecases.SearchArtistUseCase
 import kotlinx.coroutines.CoroutineScope
 import org.koin.core.scope.Scope

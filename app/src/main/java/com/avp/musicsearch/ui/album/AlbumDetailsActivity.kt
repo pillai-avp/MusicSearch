@@ -11,6 +11,7 @@ import com.avp.musicsearch.R
 import com.avp.musicsearch.databinding.ActivityAlbumDetailsBinding
 import com.avp.musicsearch.dto.Album
 import com.avp.musicsearch.ui.album_list.AlbumDetailsViewModel
+import com.bumptech.glide.Glide
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_album_details.*
 import org.koin.android.ext.android.inject
@@ -22,7 +23,7 @@ class AlbumDetailsActivity : AppCompatActivity() {
 
     private lateinit var album: Album
     private val gson: Gson by inject()
-    private val albumListViewModel: AlbumDetailsViewModel by viewModel()
+    private val albumDetailsViewModel: AlbumDetailsViewModel by viewModel()
 
     //private val albumsAdapter: AlbumsAdapter by currentScope.inject()
 
@@ -43,8 +44,23 @@ class AlbumDetailsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_album_details)
         setToolBarAsActionBar(album_details_toolbar)
+        album = getDataFromIntent()
+        setValueToBinding()
 
     }
+
+    private fun setValueToBinding() {
+        binding.album = album
+        Glide.with(binding.albumCoverDetails.context)
+            .load(album.cover_big)
+            .placeholder(R.drawable.ic_album_art_empty)
+            .into(binding.albumCoverDetails)
+
+        binding.executePendingBindings()
+    }
+
+    private fun getDataFromIntent() : Album =  gson.fromJson(intent.getStringExtra(ARG_ALBUM), Album::class.java)
+
 
     private fun setToolBarAsActionBar(toolbar: Toolbar?) {
         toolbar?.let { toolBar ->

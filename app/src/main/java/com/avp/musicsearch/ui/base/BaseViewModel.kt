@@ -1,4 +1,4 @@
-package com.avp.musicsearch.ui.abstract
+package com.avp.musicsearch.ui.base
 
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.CoroutineScope
