@@ -4,7 +4,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
-import com.avp.musicsearch.R
 import com.avp.musicsearch.common.Event
 import com.avp.musicsearch.databinding.AlbumItemLayoutBinding
 import com.avp.musicsearch.dto.Album
@@ -53,7 +52,6 @@ class AlbumsAdapter : RecyclerView.Adapter<AlbumsAdapter.AlbumsViewHolder>() {
             binding.album = item
             Glide.with(binding.albumCover.context)
                 .load(item.cover_medium)
-                .placeholder(R.drawable.ic_album_art_empty)
                 .into(binding.albumCover)
             binding.executePendingBindings()
         }
