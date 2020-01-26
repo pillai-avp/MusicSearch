@@ -15,13 +15,12 @@ import com.avp.musicsearch.ui.album_list.AlbumListActivity
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_search.*
 import org.koin.android.ext.android.inject
-import org.koin.androidx.scope.currentScope
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SearchActivity : AppCompatActivity() {
 
     private val searchViewModel: SearchViewModel by viewModel()
-    private val artistsAdapter: ArtistsAdapter by currentScope.inject()
+    private val artistsAdapter: ArtistsAdapter by inject()
     private val gson: Gson by inject()
 
     private lateinit var binding: ActivitySearchBinding

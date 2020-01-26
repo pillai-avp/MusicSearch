@@ -21,9 +21,11 @@ import org.koin.dsl.module
 private const val scopeName = "SearchActivity_scope"
 
 val searchModule = module {
-    scope(named<SearchActivity>()) {
+    /*scope(named<SearchActivity>()) {
         scoped { ArtistsAdapter() }
-    }
+    }*/
+
+    factory { ArtistsAdapter() }
 
     scope(named(scopeName)) {
         scoped {

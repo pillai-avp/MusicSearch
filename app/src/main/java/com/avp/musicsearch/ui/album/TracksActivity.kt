@@ -18,7 +18,6 @@ import com.bumptech.glide.Glide
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_tracks.*
 import org.koin.android.ext.android.inject
-import org.koin.androidx.scope.currentScope
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
@@ -30,7 +29,7 @@ class TracksActivity : AppCompatActivity() {
     private val gson: Gson by inject()
     private val albumDetailsViewModel: AlbumDetailsViewModel by viewModel()
 
-    private val tracksAdapter: TracksAdapter by currentScope.inject()
+    private val tracksAdapter: TracksAdapter by inject()
 
     private lateinit var binding: ActivityTracksBinding
 

@@ -18,7 +18,6 @@ import com.avp.musicsearch.ui.album.TracksActivity
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_album_list.*
 import org.koin.android.ext.android.inject
-import org.koin.androidx.scope.currentScope
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
@@ -39,7 +38,7 @@ class AlbumListActivity : AppCompatActivity() {
     private val gson: Gson by inject()
     private val albumListViewModel: AlbumListViewModel by viewModel()
 
-    private val albumsAdapter: AlbumsAdapter by currentScope.inject()
+    private val albumsAdapter: AlbumsAdapter by inject()
 
     private lateinit var binding: ActivityAlbumListBinding
 

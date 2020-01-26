@@ -21,9 +21,12 @@ import org.koin.dsl.module
 private const val scopeName = "AlbumListActivity_scope"
 
 val albumListModule = module {
-    scope(named<AlbumListActivity>()) {
+    /*scope(named<AlbumListActivity>()) {
         scoped { AlbumsAdapter() }
-    }
+    }*/
+
+    factory { AlbumsAdapter() }
+
 
     viewModel {
         val viewModelScope = getKoin().getOrCreateScope(
