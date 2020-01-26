@@ -21,13 +21,10 @@ import org.koin.dsl.module
 private const val scopeName = "SearchActivity_scope"
 
 val searchModule = module {
-    /*scope(named<SearchActivity>()) {
-        scoped { ArtistsAdapter() }
-    }*/
 
     factory { ArtistsAdapter() }
 
-    scope(named(scopeName)) {
+    scope(named<SearchActivity>()) {
         scoped {
             Job()
         }
@@ -38,12 +35,12 @@ val searchModule = module {
     }
 
     factory {
-        val viewModelScope = getKoin().getOrCreateScope("id_$scopeName", named(scopeName))
+        val viewModelScope = getKoin().getOrCreateScope("id_$scopeName", named<SearchActivity>())
         SearchArtistUseCase(viewModelScope.get(), get())
     }
 
     viewModel {
-        val viewModelScope = getKoin().getOrCreateScope("id_$scopeName", named(scopeName))
+        val viewModelScope = getKoin().getOrCreateScope("id_$scopeName", named<SearchActivity>())
         SearchViewModel(viewModelScope, viewModelScope.get(), get())
     }
 }

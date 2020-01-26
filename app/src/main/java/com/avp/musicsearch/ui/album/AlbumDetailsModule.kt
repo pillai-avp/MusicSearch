@@ -25,15 +25,10 @@ val albumDetailsModule = module {
 
     factory { TracksAdapter() }
 
-
-    /*scope(named<TracksActivity>()) {
-        scoped { TracksAdapter() }
-    }*/
-
     viewModel {
         val viewModelScope = getKoin().getOrCreateScope(
             "id_$scopeName",
-            named(scopeName)
+            named<TracksActivity>()
         )
         AlbumDetailsViewModel(viewModelScope, viewModelScope.get(), viewModelScope.get())
     }
@@ -41,12 +36,12 @@ val albumDetailsModule = module {
     factory {
         val viewModelScope = getKoin().getOrCreateScope(
             "id_$scopeName",
-            named(scopeName)
+            named<TracksActivity>()
         )
         GetTrackListUsecase(viewModelScope.get(), get())
     }
 
-    scope(named(scopeName)) {
+    scope(named<TracksActivity>()) {
         scoped {
             Job()
         }
