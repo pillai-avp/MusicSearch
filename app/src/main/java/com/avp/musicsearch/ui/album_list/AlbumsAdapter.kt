@@ -2,6 +2,8 @@ package com.avp.musicsearch.ui.album_list
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ImageView
+import androidx.databinding.BindingAdapter
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.avp.musicsearch.common.Event
@@ -50,10 +52,14 @@ class AlbumsAdapter : RecyclerView.Adapter<AlbumsAdapter.AlbumsViewHolder>() {
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Album) {
             binding.album = item
-            Glide.with(binding.albumCover.context)
-                .load(item.cover_medium)
-                .into(binding.albumCover)
             binding.executePendingBindings()
         }
     }
+}
+
+@BindingAdapter("remotesrc")
+fun remoteSource(imageView: ImageView, url: String) {
+    Glide.with(imageView.context)
+        .load(url)
+        .into(imageView)
 }

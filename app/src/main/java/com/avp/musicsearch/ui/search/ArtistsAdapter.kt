@@ -2,12 +2,14 @@ package com.avp.musicsearch.ui.search
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.databinding.BindingAdapter
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.avp.musicsearch.common.Event
 import com.avp.musicsearch.databinding.ArtistItemLayoutBinding
 import com.avp.musicsearch.dto.FormattedArtist
 import com.bumptech.glide.Glide
+import de.hdodenhof.circleimageview.CircleImageView
 
 
 /**
@@ -28,7 +30,7 @@ class ArtistsAdapter : RecyclerView.Adapter<ArtistsAdapter.ArtistViewHolder>() {
             ArtistItemLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         val holder = ArtistViewHolder(itemBinding)
         holder.itemView.setOnClickListener {
-            itemClickLiveData.postValue(Event(itemBinding.artist))
+            itemClickLiveData.postValue(Event(itemBinding.formattedArtist))
         }
         return holder
     }
@@ -49,12 +51,15 @@ class ArtistsAdapter : RecyclerView.Adapter<ArtistsAdapter.ArtistViewHolder>() {
     class ArtistViewHolder(private val binding: ArtistItemLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: FormattedArtist) {
-            binding.artist = item
-            Glide.with(binding.artistImage.context)
-                .load(item.artist.picture_small)
-                .into(binding.artistImage)
-
+            binding.formattedArtist = item
             binding.executePendingBindings()
         }
     }
+}
+
+@BindingAdapter("remotesrc")
+fun remoteSource(imageView: CircleImageView, url: String) {
+    Glide.with(imageView.context)
+        .load(url)
+        .into(imageView)
 }

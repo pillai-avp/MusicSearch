@@ -5,7 +5,7 @@
     <data>
 
         <variable
-            name="artist"
+            name="formattedArtist"
             type="com.avp.musicsearch.dto.FormattedArtist" />
     </data>
 
@@ -20,6 +20,7 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/artistImage"
+            remotesrc="@{formattedArtist.artist.picture_small}"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_marginTop="16dp"
@@ -31,7 +32,7 @@
             android:layout_marginLeft="16dp"
             android:fontFamily="@string/font_family_regular"
             android:gravity="center_vertical"
-            android:text="@{artist.artist.name}"
+            android:text="@{formattedArtist.artist.name}"
             android:textColor="@android:color/white"
             android:textSize="16dp" />
 

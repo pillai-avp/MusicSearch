@@ -5,7 +5,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import com.avp.musicsearch.R
 import com.bumptech.glide.Glide
-import de.hdodenhof.circleimageview.CircleImageView
 import okhttp3.Interceptor
 import okhttp3.logging.HttpLoggingInterceptor
 import timber.log.Timber
@@ -43,7 +42,7 @@ fun createHeaderLoggingInterceptor(): Interceptor {
 }
 
 
-fun CircleImageView.setImageUrl(
+fun setImageUrl(
     img: ImageView,
     url: String?
 ) {
