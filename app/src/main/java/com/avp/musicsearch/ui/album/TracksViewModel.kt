@@ -22,20 +22,20 @@ import timber.log.Timber
  *
  * Date: 23 January 2020
  */
-class AlbumDetailsViewModel(
+class TracksViewModel(
     private val scope: Scope,
     private val coroutineScope: CoroutineScope,
     private val getTrackListUsecase: GetTrackListUsecase
 ) : BaseViewModel(scope, coroutineScope) {
 
-    private val getTracksResult = MutableLiveData<Either<List<TrackData>>>()
-    private val tracksLiveData: LiveData<Event<List<TrackData>?>>
+    private val getTracksResult = MutableLiveData<Either<Map<Int, List<TrackData>>>>()
+    private val tracksLiveData: LiveData<Event<List<Any>?>>
 
     init {
 
         tracksLiveData = getTracksResult.map { either ->
             if ((either.succeeded)) {
-                Event((either as Either.Success).data)
+                Event(transform((either as Either.Success).data))
             } else {
                 Timber.e((either as Either.Error).exception)
                 Event(null)
@@ -44,9 +44,18 @@ class AlbumDetailsViewModel(
 
     }
 
-    fun getTrackList(url: String): LiveData<Event<List<TrackData>?>> {
+    fun getTrackList(url: String): LiveData<Event<List<Any>?>> {
         getTrackListUsecase(url, getTracksResult)
         return tracksLiveData
+    }
+
+    fun transform(hashMap: Map<Int, List<TrackData>>): List<Any> {
+        var typedDataList: MutableList<Any> = mutableListOf()
+        return hashMap.flatMap {
+            typedDataList.add(it.key)
+            typedDataList.addAll(it.value)
+            typedDataList
+        }
     }
 
 }

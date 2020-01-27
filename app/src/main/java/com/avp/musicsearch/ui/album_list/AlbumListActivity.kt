@@ -33,7 +33,7 @@ class AlbumListActivity : AppCompatActivity() {
         }
     }
 
-    private lateinit var artist: FormattedArtist
+    private lateinit var formattedArtist: FormattedArtist
     private val gson: Gson by inject()
     private val albumListViewModel: AlbumListViewModel by viewModel()
 
@@ -45,14 +45,14 @@ class AlbumListActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_album_list)
         setToolBarAsActionBar(albums_toolbar)
-        artist = getDataFromIntent()
+        formattedArtist = getDataFromIntent()
         configureAlbumList()
         showListOfAlbums(groupAlbumsByID())
 
     }
 
     private fun groupAlbumsByID(): List<Album> {
-        val albums = artist.listAlbums.groupBy { it.id }.values.mapNotNull {
+        val albums = formattedArtist.listAlbums.groupBy { it.id }.values.mapNotNull {
             it.maxBy { groupedValues -> groupedValues.id }
         }
         return albums
@@ -69,13 +69,13 @@ class AlbumListActivity : AppCompatActivity() {
     private fun onAdapterItemClickListener() {
         albumsAdapter.itemClickLiveData.observe(this, EventObserver {
             it?.let {
-                openAlbumDetailsActivity(it)
+                openAlbumDetailsActivity(it, formattedArtist.artist.name)
             }
         })
     }
 
-    private fun openAlbumDetailsActivity(it: Album) {
-        TracksActivity.launch(this, gson.toJson(it))
+    private fun openAlbumDetailsActivity(it: Album, artistName: String) {
+        TracksActivity.launch(this, gson.toJson(it), artistName)
     }
 
     private fun showListOfAlbums(albums: List<Album>) {

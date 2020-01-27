@@ -8,6 +8,10 @@
         <variable
             name="album"
             type="com.avp.musicsearch.dto.Album" />
+
+        <variable
+            name="artistName"
+            type="String" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -74,6 +78,7 @@
             android:gravity="center_vertical"
             android:textColor="@android:color/darker_gray"
             android:textSize="14dp"
+            android:text="@{artistName}"
             tools:text="Prince"
             tools:textColor="@android:color/darker_gray" />
 

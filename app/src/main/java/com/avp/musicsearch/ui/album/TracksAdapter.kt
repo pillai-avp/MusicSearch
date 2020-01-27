@@ -6,8 +6,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.avp.musicsearch.common.Event
 import com.avp.musicsearch.databinding.TrackItemLayoutBinding
+import com.avp.musicsearch.databinding.TrackVolumeItemLayoutBinding
 import com.avp.musicsearch.dto.TrackData
+import timber.log.Timber
 
+
+private val TYPE_VOLUME = 0
+
+private val TYPE_TRACK = 1
 
 /**
  *
@@ -17,29 +23,52 @@ import com.avp.musicsearch.dto.TrackData
  *
  * Date: 22 January 2020
  */
-class TracksAdapter : RecyclerView.Adapter<TracksAdapter.TrackViewHolder>() {
+class TracksAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private var tracks: MutableList<TrackData> = mutableListOf()
-    val itemClickLiveData = MutableLiveData<Event<TrackData?>>()
+    private var tracks: MutableList<Any> = mutableListOf()
+    val itemClickLiveData = MutableLiveData<Event<Any?>>()
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TrackViewHolder {
-        val itemBinding =
-            TrackItemLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        val holder = TrackViewHolder(itemBinding)
-        holder.itemView.setOnClickListener {
-            itemClickLiveData.postValue(Event(itemBinding.track))
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+
+        return if (viewType == TYPE_VOLUME) {
+            Timber.d("viewType == TYPE_VOLUME")
+            val itemBinding =
+                TrackVolumeItemLayoutBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                )
+            VolumeViewHolder(itemBinding)
+        } else {
+            Timber.d("viewType == TYPE_TRACK")
+            val itemBinding =
+                TrackItemLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            val holder = TrackViewHolder(itemBinding)
+            holder.itemView.setOnClickListener {
+                itemClickLiveData.postValue(Event(itemBinding.track))
+            }
+            holder
         }
-        return holder
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return when {
+            tracks[position] is Int -> TYPE_VOLUME
+            else -> TYPE_TRACK
+        }
     }
 
     override fun getItemCount(): Int = tracks.size
 
-    override fun onBindViewHolder(holder: TrackViewHolder, position: Int) {
-        holder.bind(tracks[position])
-
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        if (getItemViewType(position) == TYPE_VOLUME) {
+            (holder as VolumeViewHolder).bind(tracks[position] as Int)
+        } else {
+            (holder as TrackViewHolder).bind(tracks[position] as TrackData)
+        }
     }
 
-    fun setItem(tracks: List<TrackData>) {
+    fun setItem(tracks: List<Any>) {
         this.tracks.clear()
         this.tracks.addAll(tracks)
         notifyDataSetChanged()
@@ -49,6 +78,14 @@ class TracksAdapter : RecyclerView.Adapter<TracksAdapter.TrackViewHolder>() {
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: TrackData) {
             binding.track = item
+            binding.executePendingBindings()
+        }
+    }
+
+    class VolumeViewHolder(private val binding: TrackVolumeItemLayoutBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(item: Int) {
+            binding.volume = item
             binding.executePendingBindings()
         }
     }

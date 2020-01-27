@@ -5,7 +5,7 @@ import android.app.Application
 import android.util.Log
 import com.avp.musicsearch.di.apiModules
 import com.avp.musicsearch.di.repoModules
-import com.avp.musicsearch.ui.album.albumDetailsModule
+import com.avp.musicsearch.ui.album.tracksModule
 import com.avp.musicsearch.ui.album_list.albumListModule
 import com.avp.musicsearch.ui.search.searchModule
 import org.koin.android.ext.koin.androidContext
@@ -46,7 +46,9 @@ class MusicApplication : Application() {
                 repoModules,
                 searchModule,
                 albumListModule,
-                albumDetailsModule))
+                tracksModule
+            )
+            )
         }
     }
 }

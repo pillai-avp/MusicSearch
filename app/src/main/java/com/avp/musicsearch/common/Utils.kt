@@ -29,6 +29,9 @@ fun <X, Y> LiveData<X>.map(body: (X) -> Y): LiveData<Y> {
     return Transformations.map(this, body)
 }
 
+val <T> T.checkAllMatched: T
+    get() = this
+
 
 fun createLoggingInterceptor(): Interceptor {
     val logger = HttpLoggingInterceptor { message -> Timber.tag("OkHttp").d(message) }

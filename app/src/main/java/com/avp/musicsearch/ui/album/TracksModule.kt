@@ -3,7 +3,7 @@ package com.avp.musicsearch.ui.album
 import com.avp.musicsearch.di.getScope
 import com.avp.musicsearch.di.provideCoroutineScope
 import com.avp.musicsearch.di.provideJob
-import com.avp.musicsearch.ui.album_list.AlbumDetailsViewModel
+import com.avp.musicsearch.ui.album_list.TracksViewModel
 import com.avp.musicsearch.usecases.GetTrackListUsecase
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.qualifier.named
@@ -20,13 +20,13 @@ import org.koin.dsl.module
  */
 
 
-val albumDetailsModule = module {
+val tracksModule = module {
 
     factory { TracksAdapter() }
 
     viewModel {
         val scopedKoin = named<TracksActivity>().getScope(this)
-        AlbumDetailsViewModel(scopedKoin, scopedKoin.get(), scopedKoin.get())
+        TracksViewModel(scopedKoin, scopedKoin.get(), scopedKoin.get())
     }
 
     factory {

@@ -16,9 +16,9 @@ import kotlinx.coroutines.CoroutineScope
 class GetTrackListUsecase(
     scope: CoroutineScope,
     private val repository: AlbumRepository
-) : UseCase<String, List<TrackData>>(scope) {
+) : UseCase<String, Map<Int, List<TrackData>>>(scope) {
 
-    override suspend fun execute(parameters: String): List<TrackData> {
-        return repository.getTrackList(parameters).tracks
+    override suspend fun execute(parameters: String): Map<Int, List<TrackData>> {
+        return repository.getTrackList(parameters).tracks.groupBy { it.disk_number }
     }
 }
