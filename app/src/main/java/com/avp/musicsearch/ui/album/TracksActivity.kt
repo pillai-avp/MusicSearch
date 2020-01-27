@@ -89,7 +89,7 @@ class TracksActivity : AppCompatActivity() {
     private fun onAdapterItemClickListener() {
         tracksAdapter.itemClickLiveData.observe(this, EventObserver {
             it?.let {
-                //openAlbumDetailsActivity(it)
+                // TODO play sample mp3 file
             }
         })
     }
