@@ -50,8 +50,8 @@ class TracksViewModel(
     }
 
     fun transform(hashMap: Map<Int, List<TrackData>>): List<Any> {
-        var typedDataList: MutableList<Any> = mutableListOf()
         return hashMap.flatMap {
+            var typedDataList: MutableList<Any> = mutableListOf()
             typedDataList.add(it.key)
             typedDataList.addAll(it.value)
             typedDataList

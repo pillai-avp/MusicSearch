@@ -11,4 +11,5 @@
     <string name="font_family_thin" translatable="false">sans-serif-thin</string>
     <string name="try_some_thing_else">No result available for that search.</string>
     <string name="albums">Albums</string>
+    <string name="volume">Volume %1$s</string>
 </resources>

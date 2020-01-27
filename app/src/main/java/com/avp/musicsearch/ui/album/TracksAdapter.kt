@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
+import com.avp.musicsearch.R
 import com.avp.musicsearch.common.Event
 import com.avp.musicsearch.databinding.TrackItemLayoutBinding
 import com.avp.musicsearch.databinding.TrackVolumeItemLayoutBinding
@@ -85,7 +86,7 @@ class TracksAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     class VolumeViewHolder(private val binding: TrackVolumeItemLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Int) {
-            binding.volume = item
+            binding.volumeText = binding.root.context.getString(R.string.volume, item.toString())
             binding.executePendingBindings()
         }
     }
