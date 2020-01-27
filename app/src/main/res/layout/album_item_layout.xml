@@ -45,7 +45,6 @@
             android:layout_gravity="left"
             android:fontFamily="@string/font_family_regular"
             android:gravity="center_vertical"
-            android:text="@{album.artist.name}"
             android:textColor="@android:color/darker_gray"
             android:textSize="14dp"
             tools:text="Prince"

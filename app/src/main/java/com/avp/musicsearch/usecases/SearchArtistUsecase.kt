@@ -1,6 +1,7 @@
 package com.avp.musicsearch.usecases
 
-import com.avp.musicsearch.dto.Artist
+import com.avp.musicsearch.dto.FromattedArtistModel
+import com.avp.musicsearch.dto.GenericSearchResponse
 import com.avp.musicsearch.repo.AlbumRepository
 import kotlinx.coroutines.CoroutineScope
 
@@ -16,9 +17,19 @@ import kotlinx.coroutines.CoroutineScope
 class SearchArtistUseCase(
     scope: CoroutineScope,
     private val repository: AlbumRepository
-) : UseCase<String, List<Artist>>(scope) {
+) : UseCase<String, List<FromattedArtistModel>>(scope) {
 
-    override suspend fun execute(parameters: String): List<Artist> {
-        return repository.genericArtistSearch(parameters).artists
+    override suspend fun execute(parameters: String): List<FromattedArtistModel> {
+
+        return groupArtistsByID(repository.genericArtistSearch(parameters))
     }
+
+    private fun groupArtistsByID(genericArtistSearch: GenericSearchResponse) =
+        genericArtistSearch.searchData.groupBy { groupedSearchData ->
+            groupedSearchData.artist.id
+        }.values.mapNotNull {
+            FromattedArtistModel(it[0].artist, it.map { searchData -> searchData.album })
+        }
+
+
 }

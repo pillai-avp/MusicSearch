@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.avp.musicsearch.common.Event
 import com.avp.musicsearch.databinding.ArtistItemLayoutBinding
-import com.avp.musicsearch.dto.Artist
+import com.avp.musicsearch.dto.FromattedArtistModel
 import com.bumptech.glide.Glide
 
 
@@ -20,8 +20,8 @@ import com.bumptech.glide.Glide
  */
 class ArtistsAdapter : RecyclerView.Adapter<ArtistsAdapter.ArtistViewHolder>() {
 
-    private var artists: MutableList<Artist> = mutableListOf()
-    val itemClickLiveData = MutableLiveData<Event<Artist?>>()
+    private var artists: MutableList<FromattedArtistModel> = mutableListOf()
+    val itemClickLiveData = MutableLiveData<Event<FromattedArtistModel?>>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ArtistViewHolder {
         val itemBinding =
@@ -40,7 +40,7 @@ class ArtistsAdapter : RecyclerView.Adapter<ArtistsAdapter.ArtistViewHolder>() {
 
     }
 
-    fun setItem(artists: List<Artist>) {
+    fun setItem(artists: List<FromattedArtistModel>) {
         this.artists.clear()
         this.artists.addAll(artists)
         notifyDataSetChanged()
@@ -48,10 +48,10 @@ class ArtistsAdapter : RecyclerView.Adapter<ArtistsAdapter.ArtistViewHolder>() {
 
     class ArtistViewHolder(private val binding: ArtistItemLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: Artist) {
+        fun bind(item: FromattedArtistModel) {
             binding.artist = item
             Glide.with(binding.artistImage.context)
-                .load(item.picture_small)
+                .load(item.artist.picture_small)
                 .into(binding.artistImage)
 
             binding.executePendingBindings()

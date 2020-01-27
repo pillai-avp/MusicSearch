@@ -6,7 +6,7 @@
 
         <variable
             name="artist"
-            type="com.avp.musicsearch.dto.Artist" />
+            type="com.avp.musicsearch.dto.FromattedArtistModel" />
     </data>
 
     <LinearLayout
@@ -31,7 +31,7 @@
             android:layout_marginLeft="16dp"
             android:fontFamily="@string/font_family_regular"
             android:gravity="center_vertical"
-            android:text="@{artist.name}"
+            android:text="@{artist.artist.name}"
             android:textColor="@android:color/white"
             android:textSize="16dp" />
 

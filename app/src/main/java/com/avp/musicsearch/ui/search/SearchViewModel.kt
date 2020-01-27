@@ -6,7 +6,7 @@ import com.avp.musicsearch.common.Either
 import com.avp.musicsearch.common.Event
 import com.avp.musicsearch.common.map
 import com.avp.musicsearch.common.succeeded
-import com.avp.musicsearch.dto.Artist
+import com.avp.musicsearch.dto.FromattedArtistModel
 import com.avp.musicsearch.ui.base.BaseViewModel
 import com.avp.musicsearch.usecases.SearchArtistUseCase
 import kotlinx.coroutines.CoroutineScope
@@ -28,9 +28,9 @@ class SearchViewModel(
     private val searchArtistUseCase: SearchArtistUseCase
 ) : BaseViewModel(viewModelScope, coroutineScope) {
 
-    private val searchResult = MutableLiveData<Either<List<Artist>>>()
+    private val searchResult = MutableLiveData<Either<List<FromattedArtistModel>>>()
 
-    private val artistListLiveData: LiveData<Event<List<Artist>?>>
+    private val artistListLiveData: LiveData<Event<List<FromattedArtistModel>?>>
 
     init {
         artistListLiveData = searchResult.map { either ->
@@ -44,7 +44,7 @@ class SearchViewModel(
 
     }
 
-    fun doSearch(query: String): LiveData<Event<List<Artist>?>> {
+    fun doSearch(query: String): LiveData<Event<List<FromattedArtistModel>?>> {
         searchArtistUseCase(query, searchResult)
         return artistListLiveData
     }

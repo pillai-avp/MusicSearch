@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
@@ -13,7 +12,7 @@ import com.avp.musicsearch.R
 import com.avp.musicsearch.common.EventObserver
 import com.avp.musicsearch.databinding.ActivityAlbumListBinding
 import com.avp.musicsearch.dto.Album
-import com.avp.musicsearch.dto.Artist
+import com.avp.musicsearch.dto.FromattedArtistModel
 import com.avp.musicsearch.ui.album.TracksActivity
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_album_list.*
@@ -34,7 +33,7 @@ class AlbumListActivity : AppCompatActivity() {
         }
     }
 
-    private lateinit var artist: Artist
+    private lateinit var artist: FromattedArtistModel
     private val gson: Gson by inject()
     private val albumListViewModel: AlbumListViewModel by viewModel()
 
@@ -47,9 +46,16 @@ class AlbumListActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_album_list)
         setToolBarAsActionBar(albums_toolbar)
         artist = getDataFromIntent()
-        getAlbumList(artist.name)
         configureAlbumList()
+        showListOfAlbums(groupAlbumsByID())
 
+    }
+
+    private fun groupAlbumsByID(): List<Album> {
+        val albums = artist.listAlbums.groupBy { it.id }.values.mapNotNull {
+            it.maxBy { groupedValues -> groupedValues.id }
+        }
+        return albums
     }
 
     private fun configureAlbumList() {
@@ -72,26 +78,12 @@ class AlbumListActivity : AppCompatActivity() {
         TracksActivity.launch(this, gson.toJson(it))
     }
 
-    private fun getAlbumList(name: String) {
-        albumListViewModel.getAlbumList(name).observe(this, EventObserver { albumsList ->
-            albumsList?.let {
-                showListOfAlbums(it)
-            } ?: run {
-                showEmptyScreen()
-            }
-        })
-    }
-
-    private fun showEmptyScreen() {
-        Toast.makeText(this, R.string.try_some_thing_else, Toast.LENGTH_SHORT).show()
-    }
-
     private fun showListOfAlbums(albums: List<Album>) {
         albumsAdapter.setItem(albums)
     }
 
-    private fun getDataFromIntent(): Artist =
-        gson.fromJson(intent.getStringExtra(ARG_ARTIST), Artist::class.java)
+    private fun getDataFromIntent(): FromattedArtistModel =
+        gson.fromJson(intent.getStringExtra(ARG_ARTIST), FromattedArtistModel::class.java)
 
 
     private fun setToolBarAsActionBar(toolbar: Toolbar?) {
