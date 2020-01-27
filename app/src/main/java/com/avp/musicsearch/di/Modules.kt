@@ -44,8 +44,8 @@ val apiModules = module {
             builder.addInterceptor(createHeaderLoggingInterceptor())
         }
         //builder.addInterceptor(createHeaderInterceptor())
-        builder.connectTimeout(60, TimeUnit.SECONDS)
-        builder.readTimeout(60, TimeUnit.SECONDS)
+        builder.connectTimeout(15, TimeUnit.SECONDS)
+        builder.readTimeout(15, TimeUnit.SECONDS)
         builder.build()
 
     }
