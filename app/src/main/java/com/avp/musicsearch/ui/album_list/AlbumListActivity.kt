@@ -12,7 +12,7 @@ import com.avp.musicsearch.R
 import com.avp.musicsearch.common.EventObserver
 import com.avp.musicsearch.databinding.ActivityAlbumListBinding
 import com.avp.musicsearch.dto.Album
-import com.avp.musicsearch.dto.FromattedArtistModel
+import com.avp.musicsearch.dto.FormattedArtist
 import com.avp.musicsearch.ui.album.TracksActivity
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_album_list.*
@@ -33,7 +33,7 @@ class AlbumListActivity : AppCompatActivity() {
         }
     }
 
-    private lateinit var artist: FromattedArtistModel
+    private lateinit var artist: FormattedArtist
     private val gson: Gson by inject()
     private val albumListViewModel: AlbumListViewModel by viewModel()
 
@@ -82,8 +82,8 @@ class AlbumListActivity : AppCompatActivity() {
         albumsAdapter.setItem(albums)
     }
 
-    private fun getDataFromIntent(): FromattedArtistModel =
-        gson.fromJson(intent.getStringExtra(ARG_ARTIST), FromattedArtistModel::class.java)
+    private fun getDataFromIntent(): FormattedArtist =
+        gson.fromJson(intent.getStringExtra(ARG_ARTIST), FormattedArtist::class.java)
 
 
     private fun setToolBarAsActionBar(toolbar: Toolbar?) {

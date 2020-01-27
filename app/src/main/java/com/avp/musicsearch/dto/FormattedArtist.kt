@@ -9,7 +9,7 @@ package com.avp.musicsearch.dto
  *
  * Date: 27 January 2020
  */
-data class FromattedArtistModel(
+data class FormattedArtist(
     val artist: Artist,
     val listAlbums: List<Album>
 )

@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.avp.musicsearch.R
 import com.avp.musicsearch.common.EventObserver
 import com.avp.musicsearch.databinding.ActivitySearchBinding
-import com.avp.musicsearch.dto.FromattedArtistModel
+import com.avp.musicsearch.dto.FormattedArtist
 import com.avp.musicsearch.ui.album_list.AlbumListActivity
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_search.*
@@ -51,7 +51,7 @@ class SearchActivity : AppCompatActivity() {
         })
     }
 
-    private fun openAlbumsActivity(artist: FromattedArtistModel) {
+    private fun openAlbumsActivity(artist: FormattedArtist) {
         AlbumListActivity.launch(this, gson.toJson(artist))
     }
 
@@ -89,7 +89,7 @@ class SearchActivity : AppCompatActivity() {
         })
     }
 
-    private fun showArtistGrid(artists: List<FromattedArtistModel>) {
+    private fun showArtistGrid(artists: List<FormattedArtist>) {
         artistsAdapter.setItem(artists)
     }
 
