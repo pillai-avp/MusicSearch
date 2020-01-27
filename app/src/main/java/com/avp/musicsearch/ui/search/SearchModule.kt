@@ -1,9 +1,9 @@
 package com.avp.musicsearch.ui.search
 
+import com.avp.musicsearch.di.getScope
+import com.avp.musicsearch.di.provideCoroutineScope
+import com.avp.musicsearch.di.provideJob
 import com.avp.musicsearch.usecases.SearchArtistUseCase
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
@@ -18,7 +18,6 @@ import org.koin.dsl.module
  * Date: 24 January 2020
  */
 
-private const val scopeName = "SearchActivity_scope"
 
 val searchModule = module {
 
@@ -26,21 +25,20 @@ val searchModule = module {
 
     scope(named<SearchActivity>()) {
         scoped {
-            Job()
+            provideJob()
         }
         scoped {
-            val job: Job = get()
-            CoroutineScope(Dispatchers.Main + job)
+            provideCoroutineScope(get())
         }
     }
 
     factory {
-        val viewModelScope = getKoin().getOrCreateScope("id_$scopeName", named<SearchActivity>())
-        SearchArtistUseCase(viewModelScope.get(), get())
+        val koinScope = named<SearchActivity>().getScope(this)
+        SearchArtistUseCase(koinScope.get(), get())
     }
 
     viewModel {
-        val viewModelScope = getKoin().getOrCreateScope("id_$scopeName", named<SearchActivity>())
-        SearchViewModel(viewModelScope, viewModelScope.get(), get())
+        val koinScope = named<SearchActivity>().getScope(this)
+        SearchViewModel(koinScope, koinScope.get(), get())
     }
 }

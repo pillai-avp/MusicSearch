@@ -8,8 +8,14 @@ import com.avp.musicsearch.net.DeezerAPI
 import com.avp.musicsearch.repo.AlbumRepository
 import com.avp.musicsearch.repo.AlbumRepositoryImpl
 import com.google.gson.GsonBuilder
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import okhttp3.OkHttpClient
+import org.koin.core.qualifier.TypeQualifier
+import org.koin.core.scope.Scope
 import org.koin.dsl.module
+import org.koin.ext.getFullName
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
@@ -63,4 +69,14 @@ val apiModules = module {
  */
 val repoModules = module {
     factory<AlbumRepository> { AlbumRepositoryImpl(get()) }
+}
+
+fun provideCoroutineScope(job: Job): CoroutineScope {
+    return CoroutineScope(Dispatchers.Main + job)
+}
+
+fun provideJob(): Job = Job()
+
+fun TypeQualifier.getScope(scope: Scope): Scope {
+    return scope.getKoin().getOrCreateScope(this.type.getFullName(), this)
 }

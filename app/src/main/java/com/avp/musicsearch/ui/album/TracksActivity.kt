@@ -94,7 +94,6 @@ class TracksActivity : AppCompatActivity() {
         binding.album = album
         Glide.with(binding.albumCoverDetails.context)
             .load(album.cover_big)
-            .placeholder(R.drawable.ic_album_art_empty)
             .into(binding.albumCoverDetails)
 
         binding.executePendingBindings()

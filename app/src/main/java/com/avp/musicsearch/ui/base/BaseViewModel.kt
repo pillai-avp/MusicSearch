@@ -14,12 +14,12 @@ import org.koin.core.scope.Scope
  *
  * Date: 22 January 2020
  */
-open class BaseViewModel(private val viewModelScope: Scope, private val scope: CoroutineScope) :
+open class BaseViewModel(private val koinScope: Scope, private val coroutineScope: CoroutineScope) :
     ViewModel() {
 
     override fun onCleared() {
         super.onCleared()
-        scope.cancel()
-        viewModelScope.close()
+        coroutineScope.cancel()
+        koinScope.close()
     }
 }
