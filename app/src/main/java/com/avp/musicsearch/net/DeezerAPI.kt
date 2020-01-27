@@ -15,7 +15,7 @@ import retrofit2.http.Url
  *
  *
  * Created by:  Arun Pillai
- * Email: arun.vijayan.pillai@shortcut.no
+ * Email: pillai.avp@gmail.com
  *
  * Date: 22 January 2020
  */

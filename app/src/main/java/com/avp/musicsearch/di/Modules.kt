@@ -25,7 +25,7 @@ import java.util.concurrent.TimeUnit
  * Koin configurations for the dependency injection
  *
  * Created by:  Arun Pillai
- * Email: arun.vijayan.pillai@shortcut.no
+ * Email: pillai.avp@gmail.com
  *
  * Date: 21 January 2020
  */

@@ -19,7 +19,7 @@ import timber.log.Timber
  *
  *
  * Created by:  Arun Pillai
- * Email: arun.vijayan.pillai@shortcut.no
+ * Email: pillai.avp@gmail.com
  *
  * Date: 21 January 2019
  */

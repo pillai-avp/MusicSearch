@@ -14,7 +14,7 @@ import org.koin.dsl.module
  *
  *
  * Created by:  Arun Pillai
- * Email: arun.vijayan.pillai@shortcut.no
+ * Email: pillai.avp@gmail.com
  *
  * Date: 24 January 2020
  */

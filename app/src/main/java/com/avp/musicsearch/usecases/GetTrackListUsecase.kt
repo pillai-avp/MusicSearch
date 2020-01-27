@@ -9,7 +9,7 @@ import kotlinx.coroutines.CoroutineScope
  *
  *
  * Created by:  Arun Pillai
- * Email: arun.vijayan.pillai@shortcut.no
+ * Email: pillai.avp@gmail.com
  *
  * Date: 22 January 2020
  */

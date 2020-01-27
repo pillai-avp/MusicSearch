@@ -14,7 +14,7 @@ import com.bumptech.glide.Glide
  *
  *
  * Created by:  Arun Pillai
- * Email: arun.vijayan.pillai@shortcut.no
+ * Email: pillai.avp@gmail.com
  *
  * Date: 22 January 2020
  */

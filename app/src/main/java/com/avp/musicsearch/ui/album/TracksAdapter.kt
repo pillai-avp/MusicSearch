@@ -9,7 +9,6 @@ import com.avp.musicsearch.common.Event
 import com.avp.musicsearch.databinding.TrackItemLayoutBinding
 import com.avp.musicsearch.databinding.TrackVolumeItemLayoutBinding
 import com.avp.musicsearch.dto.TrackData
-import timber.log.Timber
 
 
 private val TYPE_VOLUME = 0
@@ -20,7 +19,7 @@ private val TYPE_TRACK = 1
  *
  *
  * Created by:  Arun Pillai
- * Email: arun.vijayan.pillai@shortcut.no
+ * Email: pillai.avp@gmail.com
  *
  * Date: 22 January 2020
  */
@@ -32,7 +31,6 @@ class TracksAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
 
         return if (viewType == TYPE_VOLUME) {
-            Timber.d("viewType == TYPE_VOLUME")
             val itemBinding =
                 TrackVolumeItemLayoutBinding.inflate(
                     LayoutInflater.from(parent.context),
@@ -41,7 +39,6 @@ class TracksAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                 )
             VolumeViewHolder(itemBinding)
         } else {
-            Timber.d("viewType == TYPE_TRACK")
             val itemBinding =
                 TrackItemLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
             val holder = TrackViewHolder(itemBinding)
